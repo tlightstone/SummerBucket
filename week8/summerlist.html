@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Bucket List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 ">
+        <h1 class="text-center">Summer Bucket List</h1>
+        <ul class="list-group" id="bucket-list">
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                See Reading Pagoda
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Weekend gettaway to D.C.
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                SeeHearNow Festival
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Concert - Mt.Joy 
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Concert - Wallows
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Weekend gettaway to NYC
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Taylor Swift Event (just one please)
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Chinese Lantern Festival
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Food Festival - South East Asian Market 
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                The Art of the Brick
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" class="mr-2" onclick="toggleCompleted(this)"> 
+                Dining Under The Stars (Wednesdays only)
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleCompleted(checkbox) {
+            const listItem = checkbox.parentElement;
+            const list = document.getElementById('bucket-list');
+
+            if (checkbox.checked) {
+                listItem.classList.add('completed');
+            } else {
+                listItem.classList.remove('completed');
+            }
+            
+            updateList(list);
+        }
+
+        function updateList(list) {
+            const items = Array.from(list.getElementsByTagName('li'));
+
+            items.sort((a, b) => {
+                const aText = a.textContent.trim().toLowerCase();
+                const bText = b.textContent.trim().toLowerCase();
+
+                if (a.classList.contains('completed') && !b.classList.contains('completed')) {
+                    return 1;
+                }
+                if (!a.classList.contains('completed') && b.classList.contains('completed')) {
+                    return -1;
+                }
+                return aText.localeCompare(bText);
+            });
+
+            items.forEach(item => list.appendChild(item));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const list = document.getElementById('bucket-list');
+            updateList(list);
+        });
+    </script>
+</body>
+</html>
